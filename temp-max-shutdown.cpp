@@ -16,11 +16,11 @@ const char *temp_file_path = "/sys/devices/virtual/thermal/thermal_zone0/temp";
 
 
 unsigned int microseconds = sleep_interval*1000000;
-int ALIVE=1;
+bool ALIVE=true;
 
 
 void strl_c(int sig){
-      ALIVE = 0;
+      ALIVE = false;
 }
 
 
@@ -39,11 +39,11 @@ int main(){
             double curr_temp = std::stod (line)/1000;
             if (curr_temp >= max_temp){
                 char logmsg[100];
-                sprintf(logmsg,"/usr/bin/logger -t temp99shutdown '!!! critical temperature of %.3f degree reached, force the system to shut down. !!!'",curr_temp);
+                sprintf(logmsg,"/usr/bin/logger -t temp-max-shutdown '!!! critical temperature of %.3f degree reached, force the system to shut down. !!!'",curr_temp);
                 system(logmsg);
                 system("/sbin/shutdown -P now");
                 //system("echo $PATH");
-                ALIVE=0;
+                ALIVE=false;
             }
             usleep(microseconds);
         }
