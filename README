@@ -1,0 +1,36 @@
+ODROID temp-max-shutdown
+
+Shutdown odroid on critical temperature. If your odroid is without an active cooling this simple c program may prevent an overheating and some damage of the board. In addition it writes a message to the system file log /var/log/syslog before shutting down.
+
+This program is very lightweight with no extras and can run in background all the time without requiring much resources. Feel free to adapt and rewrite the program to your needs.
+
+
+ADAPTATION
+
+To customize, open temp.cpp file and change the variables max_temp or sleep_interval and don't forget to recompile:
+
+# make
+
+
+
+INSTALLATION
+
+To start the executable at startup:
+
+edit rc.local as root and insert the path of the file
+# vi /etc/rc.local
+/opt/odroid-temp/temp-max-shutdown &
+
+copy the git directory to opt:
+# cp odroid-temp /opt
+
+
+TESTED
+
+Tested on
+    Odroid-U3
+    Ubuntu 14.04.2 LTS
+
+
+AUTHOR  Walter Werner
+EMAIL   wernwa@gmail.com
